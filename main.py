@@ -1,9 +1,10 @@
 
 import cv2
-import numpy as np
 from ultralytics import YOLO
+from typing import List
 
-from possession import add_new_players_to_possession, closest_player
+from Tracker import Tracker
+from objects.ball import Ball
 
 VIDEO_PATH = r"tests_videos\A1606b0e6_0 (27).mp4"
 
@@ -14,19 +15,34 @@ video = cv2.VideoCapture(VIDEO_PATH)
 
 results = model.track(VIDEO_PATH, stream=True, persist=True, save=True)
 
-
-players_possession = {}
+# list of all players
 players_ids = set()
-for result in results:
+ball = Ball(0)
+game_tracker = Tracker(players = [], ball=ball)
+
+for time_index, result in enumerate(results):
     ids = result.boxes.id.numpy().astype(int)
     boxes = result.boxes.xyxy.numpy().astype(int)
     class_ids = result.boxes.cls.numpy().astype(int)
+
+    # Add players positions
     players_ids.update(ids[class_ids == 1])
-    ball_box = boxes[class_ids == 0][0]
-    players_possession = add_new_players_to_possession(players_possession, players_ids)
-    
-    # Add possession to a player
-    players_possession[closest_player(players_ids, boxes[class_ids == 1], ball_box)] += 1
+
+    # In case there are new players add them
+    game_tracker.players = game_tracker.add_new_players(players_ids, time_index)
+    for current_player in game_tracker.players:
+        if current_player.object_id not in ids:
+            current_player.previous_positions.append([])
+        else:
+            current_index = list(ids).index(current_player.object_id)
+            current_player.previous_positions.append(boxes[current_index])
+
+    # Add ball position
+    ball_position = boxes[class_ids == 2]
+    if ball_position.size > 0:
+        game_tracker.ball.previous_positions.append(ball_position[0])
+    else:
+        game_tracker.ball.previous_positions.append([])
 
 
 
