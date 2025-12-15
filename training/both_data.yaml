@@ -1,0 +1,20 @@
+names:
+- ball
+- player
+- goalpost
+nc: 3
+roboflow:
+  license: CC BY 4.0
+  project: football-players-bpptd
+  url: https://universe.roboflow.com/yuankim/football-players-bpptd/dataset/1
+  version: 1
+  workspace: yuankim
+test:
+- football-players-1/test/images
+- goalpost-1/test/images
+train:
+- football-players-1/train/images
+- goalpost-1/train/images
+val:
+- football-players-1/valid/images
+- goalpost-1/valid/images

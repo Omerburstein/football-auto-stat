@@ -4,12 +4,14 @@ from ultralytics import YOLO
 from typing import List
 
 from Tracker import Tracker
+from consts import BALL_CLASS_ID, PLAYER_CLASS_ID
 from objects.ball import Ball
 
-VIDEO_PATH = r"tests_videos\A1606b0e6_0 (27).mp4"
+SECOND_VIDEO = "A1606b0e6_0 (27).mp4"
+VIDEO_PATH = r"tests_videos\08fd33_4.mp4"
 
 # load model
-model = YOLO(r"weights\best_player_detection.pt")
+model = YOLO(r"weights\best_both.pt")
 
 video = cv2.VideoCapture(VIDEO_PATH)
 
@@ -26,26 +28,22 @@ for time_index, result in enumerate(results):
     class_ids = result.boxes.cls.numpy().astype(int)
 
     # Add players positions
-    players_ids.update(ids[class_ids == 1])
+    players_ids.update(ids[class_ids == BALL_CLASS_ID])
 
     # In case there are new players add them
     game_tracker.players = game_tracker.add_new_players(players_ids, time_index)
-    for current_player in game_tracker.players:
-        if current_player.object_id not in ids:
-            current_player.previous_positions.append([])
-        else:
-            current_index = list(ids).index(current_player.object_id)
-            current_player.previous_positions.append(boxes[current_index])
+    game_tracker.add_players_positions(ids, boxes)
 
     # Add ball position
-    ball_position = boxes[class_ids == 2]
+    ball_position = boxes[class_ids == PLAYER_CLASS_ID]
     if ball_position.size > 0:
         game_tracker.ball.previous_positions.append(ball_position[0])
     else:
         game_tracker.ball.previous_positions.append([])
 
 
-
+game_tracker.ball.interpolate_positions()
+game_tracker.find_possession()
 
 
 
