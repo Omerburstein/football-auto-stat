@@ -1,0 +1,6 @@
+.claude/hooks/state/
+.claude/worktrees/
+.claude/settings.local.json
+outputs/
+__pycache__/
+.pytest_cache/
