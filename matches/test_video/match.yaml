@@ -1,0 +1,9 @@
+# Integration fixture: the short broadcast clip in tests_videos/. It is a pro game, so team-mates
+# share shirt colours - a hard case for appearance-only identification. Players are named P01..P22.
+max_players: 22
+pitch: {length_m: 105, width_m: 68}
+cameras:
+  - id: cam1
+    video: ../../tests_videos/A1606b0e6_0 (27).mp4
+roster: [P01, P02, P03, P04, P05, P06, P07, P08, P09, P10, P11,
+         P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22]
