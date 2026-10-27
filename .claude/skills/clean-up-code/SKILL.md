@@ -8,7 +8,7 @@ argument-hint: "[file-or-folder]"
 
 Target: `$ARGUMENTS`. If no target was given, work on the Python files that changed:
 `git status --porcelain -- "*.py"` plus `git diff --name-only HEAD -- "*.py"`.
-If the target is a folder, work on every `.py` file in it (recursively), excluding `training/` notebooks and `weights/`.
+If the target is a folder, work on every `.py` file in it (recursively), excluding `models/`.
 
 Cleanup must **not change behaviour**. Run the tests before and after (`py -3.13 -m pytest -m "not slow"` if `tests/` exists); if they were green before, they must be green after.
 
@@ -25,7 +25,7 @@ Cleanup must **not change behaviour**. Run the tests before and after (`py -3.13
 
 3. **Short files**
    - Aim for ≤ 200 lines per file and ≤ 40 lines per function. When a file is longer, split it by responsibility (e.g. detection, tracking, stats, visualization) into its own module/package, and update every import.
-   - `main.py` should only wire things together: parse config, build objects, run the pipeline. Move logic out of it into classes.
+   - `src/main.py` should only wire things together: parse config, build objects, run the pipeline. Move logic out of it into classes.
 
 4. **OOP structure**
    - Domain concepts are classes: `TrackableObject` -> `Player`, `Ball`, (goals, teams, cameras as they appear). Behaviour lives on the class that owns the data, not in free functions that reach into objects.

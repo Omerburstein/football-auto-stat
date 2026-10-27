@@ -1,4 +1,4 @@
-"""Image -> pitch mapping of a fixed camera, from points the user clicked (tools/calibrate.py).
+"""Image -> pitch mapping of a fixed camera, from points the user clicked (src/tools/calibrate.py).
 
 Pitch coordinates are metres: x along the length (0 = left goal line), y along the width
 (0 = the touchline at the top of the standard top-down drawing).

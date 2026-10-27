@@ -12,7 +12,7 @@ import yaml
 
 from tracking.settings import TrackingSettings
 
-DEFAULT_WEIGHTS = Path(__file__).resolve().parents[1] / "weights" / "best_both.pt"
+DEFAULT_WEIGHTS = Path(__file__).resolve().parents[2] / "models" / "weights" / "best_both.pt"
 
 
 class ConfigError(ValueError):
@@ -51,7 +51,7 @@ class PitchConfig:
 class CameraConfig:
     id: str
     video: Path
-    calibration: Path          # written by tools/calibrate.py; may not exist yet
+    calibration: Path          # written by src/tools/calibrate.py; may not exist yet
     time_offset_s: float = 0.0  # added to this camera's frame times to sync several cameras
 
 

@@ -2,7 +2,7 @@
 
     py -3.13 -m tracking.pipeline matches/<game>/match.yaml [--max-frames N] [--refresh]
 
-Writes players.csv / ball.csv / goals.csv (see objects/game_state.py) and review.md to the run folder.
+Writes players.csv / ball.csv / goals.csv (see src/objects/game_state.py) and review.md to the run folder.
 """
 from __future__ import annotations
 
