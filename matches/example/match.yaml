@@ -1,0 +1,47 @@
+# Everything the tracker assumes about one game. Paths are relative to this file.
+# Copy this folder to matches/<your-game>/ and edit it, then:
+#   py -3.13 -m tools.calibrate matches/<your-game>/match.yaml   # once per camera position
+#   py -3.13 -m tools.enroll    matches/<your-game>/match.yaml   # click + name every player
+#   py -3.13 -m tracking.pipeline matches/<your-game>/match.yaml # results + review.md in ./run/
+
+# Maximum number of players on the field at the same time (both teams together).
+max_players: 10
+
+# Pitch size in metres (amateur pitches vary - measure or estimate).
+pitch: {length_m: 40, width_m: 20}
+
+# One entry per fixed camera. A second phone is just a second entry with its own calibration;
+# time_offset_s shifts its clock so both videos line up (camera2 started 3.2 s later -> 3.2).
+cameras:
+  - id: cam1
+    video: ../../tests_videos/A1606b0e6_0 (27).mp4
+    calibration: cam1_calibration.yaml   # written by tools/calibrate.py
+    time_offset_s: 0
+
+# Everyone who may play today. Names are used in the timeline, enrollment and all stats.
+roster: [Amir, Dan, Yossi, Noa, Omer, Tal, Gil, Ron, Lior, Eden, Maya]
+
+# Written by tools/enroll.py: which box at which frame is which player.
+enrollment: enrollment.yaml
+
+# Changes during the game, by name, from time t (mm:ss or seconds). Teams never come from colours.
+#   teams:         full line-up (team -> players on the field); replaces the previous one
+#   moves:         {player: new team} - one player switches team
+#   goalkeepers:   {team: player} - who is in goal from now on
+#   outfit_change: [players] - they changed clothes; enroll them again after this time
+#   sub_in/sub_out: [players] - enter / leave the field
+timeline:
+  - t: "00:00"
+    teams:
+      A: [Amir, Dan, Yossi, Noa, Omer]
+      B: [Tal, Gil, Ron, Lior, Eden]
+    goalkeepers: {A: Dan, B: Tal}
+  - {t: "12:30", goalkeepers: {A: Amir}}
+  - {t: "15:00", sub_out: [Noa], sub_in: [Maya], moves: {Maya: A}}
+  - {t: "20:00", outfit_change: [Dan]}
+
+# Optional: detector model and thresholds (defaults shown).
+# imgsz: model input size - larger finds far-away players but is slower (640 / 960 / 1280).
+# detector: {weights: ../../weights/best_both.pt, conf: 0.25, imgsz: 960, player_label: player, ball_label: ball, goal_label: goalpost}
+# Optional: tracking thresholds, see tracking/settings.py, e.g.
+# tracking: {max_speed_mps: 8.0, max_assign_distance: 0.40}

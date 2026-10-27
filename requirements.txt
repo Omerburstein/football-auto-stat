@@ -3,3 +3,5 @@ ultralytics
 roboflow
 pandas
 numpy
+pyyaml
+scipy

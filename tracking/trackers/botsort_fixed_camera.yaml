@@ -1,0 +1,14 @@
+# BoT-SORT settings for a fixed (non-moving) camera, tuned to prefer broken tracks over id swaps.
+# The offline identity stage re-joins broken tracks; swaps are much harder to undo.
+tracker_type: botsort
+track_high_thresh: 0.3   # first-stage match threshold
+track_low_thresh: 0.1    # second-stage (low score) matches
+new_track_thresh: 0.4    # start new tracks only from confident detections
+track_buffer: 15         # frames a lost track is kept (short: long buffers cause swaps after occlusions)
+match_thresh: 0.7        # stricter than the 0.8 default
+fuse_score: True
+gmc_method: none         # the camera does not move - no global motion compensation needed
+proximity_thresh: 0.5
+appearance_thresh: 0.8
+with_reid: False         # appearance is handled offline by tracking/appearance.py
+model: auto
