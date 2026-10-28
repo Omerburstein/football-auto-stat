@@ -40,7 +40,7 @@ Report each worktree's branch, uncommitted changes and commits ahead of `main` (
 ## finish
 
 1. In the worktree: everything committed (`git status` is clean), tests pass.
-2. Ask the user before merging. Then, from the **main checkout**:
+2. Merge into `main` (ask first only if the user hasn't already said to merge). Then, from the **main checkout**:
    ```bash
    git merge --no-ff <type>/<task>
    ```
@@ -52,7 +52,7 @@ Report each worktree's branch, uncommitted changes and commits ahead of `main` (
    git worktree prune
    ```
    (or ExitWorktree with remove, when the worktree was created by EnterWorktree).
-4. Push only when the user asks: `git push origin main` (and the branch, if they want it on GitHub / as a PR).
+4. Push automatically (standing permission from the user): `git push origin main`, and `git push -u origin <type>/<task>` for the task branch (before deleting it) so it is on GitHub too. Never force-push.
 5. Mark the task in todo.md with the manage-todo skill.
 
 ## Never
