@@ -15,7 +15,7 @@ from pathlib import Path
 
 REQUIRED_SKILLS = ("create-tests", "clean-up-code")
 # Paths whose edits do not count as "new code" (tests are produced by the skills themselves).
-IGNORED_PARTS = {"tests", ".claude", "training", "weights", "outputs"}
+IGNORED_PARTS = {"tests", ".claude", "models", "data", "runs"}
 
 STATE_DIR = Path(__file__).resolve().parent / "state"
 PROJECT_DIR = Path(__file__).resolve().parents[2]

@@ -1,4 +1,4 @@
-"""Enrollment: the user's clicks saying "this box, at this frame, is <name>" (tools/enroll.py).
+"""Enrollment: the user's clicks saying "this box, at this frame, is <name>" (src/tools/enroll.py).
 
 Each sample teaches the gallery one view of a player's outfit and pins the tracklet that
 contains the box to that name.

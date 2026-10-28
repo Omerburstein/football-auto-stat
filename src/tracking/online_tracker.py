@@ -1,7 +1,7 @@
 """Frame-by-frame tracking: links player detections of consecutive frames into short tracks.
 
 The online tracker is tuned conservatively - it should rather break a track than swap two players,
-because the offline identity stage (tracking/identity.py) re-joins broken tracks but cannot easily
+because the offline identity stage (src/tracking/identity.py) re-joins broken tracks but cannot easily
 undo a swap.
 """
 from __future__ import annotations

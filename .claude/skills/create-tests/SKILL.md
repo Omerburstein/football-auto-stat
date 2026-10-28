@@ -33,7 +33,7 @@ tests/
   algo/                # behaviour of the stats/tracking algorithms on scenarios with known answers
 ```
 
-Mirror the source path in the test name: `objects/player.py` -> `tests/unit/objects/test_player.py`.
+Mirror the source path in the test name: `src/objects/player.py` -> `tests/unit/objects/test_player.py`.
 
 ## What each kind of test covers
 
@@ -42,9 +42,9 @@ Mirror the source path in the test name: `objects/player.py` -> `tests/unit/obje
 - Geometry helpers with hand-computed expected values (box centres, distances, speeds).
 
 **Integration** – several modules together without the real network.
-- Build fake detection results that look like ultralytics `Results` (`boxes.id`, `boxes.xyxy`, `boxes.cls` as numpy arrays) in `conftest.py`, and feed them through the same code path `main.py` uses (tracker creation, adding players, positions, interpolation, stats).
+- Build fake detection results that look like ultralytics `Results` (`boxes.id`, `boxes.xyxy`, `boxes.cls` as numpy arrays) in `conftest.py`, and feed them through the same code path `src/main.py` uses (tracker creation, adding players, positions, interpolation, stats).
 - Players appearing mid-video, disappearing, ball missing for some frames, frames with no ids.
-- One `@pytest.mark.slow` smoke test that runs the real model (`weights/best_both.pt`) on a few frames of `tests_videos/` and checks the output shape, skipped with `pytest.importorskip` / `skipif` when weights or video are missing.
+- One `@pytest.mark.slow` smoke test that runs the real model (`models/weights/best_both.pt`) on a few frames of `data/videos/` and checks the output shape, skipped with `pytest.importorskip` / `skipif` when weights or video are missing.
 
 **Algo** – the algorithm gives the right answer on a scenario whose ground truth is known.
 - Build synthetic tracks frame by frame: e.g. the ball sits next to player A for 30 frames then next to player B for 10 -> possession is 75% / 25%; the ball jumps faster than `MIN_BALL_SPEED_FOR_SHOOT` next to a player -> exactly one shot for that player; ball far from everyone -> nobody gets possession.

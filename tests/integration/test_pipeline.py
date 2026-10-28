@@ -60,8 +60,8 @@ def test_overlay_video_has_every_frame(scene_match, tmp_path):
 @pytest.mark.slow
 def test_real_model_on_the_first_frames_of_the_test_video(tmp_path):
     match = ROOT / "matches" / "test_video" / "match.yaml"
-    if not (ROOT / "weights" / "best_both.pt").exists() or not any((ROOT / "tests_videos").glob("*.mp4")):
-        pytest.skip("needs weights/best_both.pt and tests_videos/")
+    if not (ROOT / "models" / "weights" / "best_both.pt").exists() or not any((ROOT / "data" / "videos").glob("*.mp4")):
+        pytest.skip("needs models/weights/best_both.pt and data/videos/")
     config = MatchConfig.load(match)
     config.run_dir = tmp_path
     config.enrollment = tmp_path / "none.yaml"

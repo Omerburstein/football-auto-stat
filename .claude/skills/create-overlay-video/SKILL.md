@@ -6,16 +6,16 @@ argument-hint: "[input-video]"
 
 # Create overlay video
 
-Input video: `$ARGUMENTS`. If none was given, use the first file in `tests_videos/` (ask the user if there is none).
+Input video: `$ARGUMENTS`. If none was given, use the first file in `data/videos/` (ask the user if there is none).
 
 Use `py -3.13` (Python 3.13 has ultralytics and cv2).
 
 ## 1. Make sure the renderer exists
 
-The overlay code lives in `visualization/` and must stay separate from detection and stats:
+The overlay code lives in `src/visualization/` and must stay separate from detection and stats:
 
-- `visualization/overlay_renderer.py` – class `OverlayRenderer` that takes a frame plus the per-frame state (players, ball, goals, stats) and returns the annotated frame. No model calls inside.
-- `visualization/render_video.py` – CLI entry point: `py -3.13 -m visualization.render_video <input> [--output PATH] [--weights PATH]`. It runs the same pipeline as `main.py` (reuse its classes, do not copy logic), collects per-frame state, then writes the video.
+- `src/visualization/overlay_renderer.py` – class `OverlayRenderer` that takes a frame plus the per-frame state (players, ball, goals, stats) and returns the annotated frame. No model calls inside.
+- `src/visualization/render_video.py` – CLI entry point: `PYTHONPATH=src py -3.13 -m visualization.render_video <input> [--output PATH] [--weights PATH]`. It runs the same pipeline as `src/main.py` (reuse its classes, do not copy logic), collects per-frame state, then writes the video.
 
 If these do not exist yet or are missing something below, create or extend them (keep files short and OOP, per the clean-up-code skill).
 
@@ -31,10 +31,10 @@ If these do not exist yet or are missing something below, create or extend them 
 
 - Read class ids from the model (`model.names`), not hardcoded numbers – map names `player`, `ball`, `goalpost` to the right objects.
 - Keep the input FPS and resolution; write with `cv2.VideoWriter` (`mp4v`).
-- Save to `outputs/<input-name>_overlay.mp4` (create `outputs/`; make sure `outputs/` is in `.gitignore`). Never overwrite the input.
+- Save to `runs/<input-name>_overlay.mp4` (create `runs/`; make sure `runs/` is in `.gitignore`). Never overwrite the input.
 - For a long video, first render the first ~10 seconds to check the result, then the full video.
 
 ## 4. Check and report
 
-- Open a few frames of the result (extract with cv2 to `outputs/frames/` and look at them with the Read tool) and check boxes line up with players, ids are stable, and the stats panel is readable.
+- Open a few frames of the result (extract with cv2 to `runs/frames/` and look at them with the Read tool) and check boxes line up with players, ids are stable, and the stats panel is readable.
 - Report the output path, video length, number of tracked players, final stats, and anything that looked wrong (id switches, missed ball, false detections).

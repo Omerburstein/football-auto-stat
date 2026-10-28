@@ -38,7 +38,7 @@ def test_format_time_is_minutes_and_seconds():
 def test_example_match_loads_with_paths_relative_to_the_yaml():
     config = MatchConfig.load(EXAMPLE)
     assert config.max_players == 10
-    assert config.cameras[0].video.parent.name == "tests_videos"
+    assert config.cameras[0].video.parent.name == "videos"
     assert config.cameras[0].calibration == EXAMPLE.parent / "cam1_calibration.yaml"
     assert config.enrollment == EXAMPLE.parent / "enrollment.yaml"
     assert config.run_dir == EXAMPLE.parent / "run"

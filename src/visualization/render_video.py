@@ -3,7 +3,7 @@
     py -3.13 -m visualization.render_video matches/<game>/match.yaml [--camera cam1] [--output PATH] [--max-frames N]
 
 Runs the tracking pipeline first (the slow online pass is cached) and writes
-outputs/<game>_<camera>_overlay.mp4 with the input's fps and resolution.
+runs/<game>_<camera>_overlay.mp4 with the input's fps and resolution.
 """
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ from tracking.config import MatchConfig
 from tracking.pipeline import TrackingPipeline
 from visualization.overlay_renderer import OverlayRenderer
 
-OUTPUT_DIR = Path("outputs")
+OUTPUT_DIR = Path("runs")
 
 
 def render(camera: Camera, state: GameState, output: Path, max_frames: int | None = None) -> int:

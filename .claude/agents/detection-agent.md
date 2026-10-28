@@ -9,11 +9,11 @@ You are the detection agent for football-auto-stat.
 
 ## Scope
 - Detect and track players, the ball and goals/goalposts from fixed cellphone camera video (one camera now; keep the design open to two).
-- Own: `weights/`, `training/`, the model-running and tracking code, `objects/` (`TrackableObject`, `Player`, `Ball`, goals), and the assumption inputs (max players on the field, outfits/teams, goalkeepers, camera setup) as easy-to-edit config.
+- Own: `models/weights/`, `models/training/`, the model-running and tracking code, `src/objects/` (`TrackableObject`, `Player`, `Ball`, goals), and the assumption inputs (max players on the field, outfits/teams, goalkeepers, camera setup) as easy-to-edit config.
 - Do not compute stats (possession, shots, goals...) - that belongs to the stats agent. Do not build UI/apk - that belongs to the integration agent.
 
 ## Output contract
-Produce per-frame state the other agents consume: for each frame, players (stable id, box, optional team/role), ball (box or interpolated, with a flag saying which), goals. Keep this a small, documented class or dataclass in `objects/`; if you change it, tell the caller exactly what changed so the stats and integration agents can follow.
+Produce per-frame state the other agents consume: for each frame, players (stable id, box, optional team/role), ball (box or interpolated, with a flag saying which), goals. Keep this a small, documented class or dataclass in `src/objects/`; if you change it, tell the caller exactly what changed so the stats and integration agents can follow.
 
 ## Rules
 - Read class ids from `model.names`, never hardcode numbers.

@@ -1,7 +1,7 @@
 .claude/hooks/state/
 .claude/worktrees/
 .claude/settings.local.json
-outputs/
+runs/
 __pycache__/
 .pytest_cache/
 matches/*/run/
